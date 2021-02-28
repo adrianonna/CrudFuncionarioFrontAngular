@@ -1,63 +1,61 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" style="color:white;">Employee Manager</a>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+  <a class="navbar-brand" style="color:white;">Crud Funcionario</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarColor02">
      <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-           <!-- <a class="nav-link" (click)="onOpenModal(null, 'add')">Add funcionario <span class="sr-only">(current)</span></a> -->
+           <a class="nav-link" (click)="onOpenModal(null, 'add')">Add Funcionario <span class="sr-only">(current)</span></a>
         </li>
      </ul>
      <form class="form-inline my-2 my-lg-0">
-        <input type="search" (ngModelChange)="searchFuncionario(key.value)" #key="ngModel" ngModel
-         name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search employees..." required>
+        <input type="search" (ngModelChange)="searchFuncionarios(key.value)" #key="ngModel" ngModel
+         name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search funcionarios..." required>
      </form>
   </div>
 </nav>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container" id="main-container">
-    <div class="row">
-        <div *ngFor="let funcionario of funcionarios" class="col-md-6 col-xl-4">
-            <div class="card m-b-30">
-                <div class="card-body row">
-                    <div class="col-6">
-                        <a href=""><img src="{{funcionario?.urlImagem}}" alt="" class="img-fluid rounded-circle w-60"></a>
-                    </div>
-                    <div class="col-6 card-title align-self-center mb-0">
-                        <h5>{{funcionario?.nome}}</h5>
-                        <p class="m-0">{{funcionario?.funcao}}</p>
-                    </div>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email : {{funcionario?.email}}</li>
-                    <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{funcionario?.telefone}}</li>
-                </ul>
-                <div class="card-body">
-                    <div class="float-right btn-group btn-group-sm">
-                        <a (click)="onOpenModal(funcionario, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-bs-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                        <a (click)="onOpenModal(funcionario, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-bs-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
-                    </div>
-                </div>
-            </div>
+<div class="row">
+  <div *ngFor="let funcionario of funcionarios" class="col-md-6 col-xl-3">
+     <div class="card m-b-30">
+        <div class="card-body row">
+           <div class="col-6">
+              <a href=""><img src="{{funcionario?.urlImagem}}" alt="" class="img-fluid rounded-circle w-60"></a>
+           </div>
+           <div class="col-6 card-title align-self-center mb-0">
+              <h5>{{funcionario?.nome}}</h5>
+              <p class="m-0">{{funcionario?.funcao}}</p>
+           </div>
         </div>
-    </div>
+        <ul class="list-group list-group-flush">
+           <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{funcionario?.email}}</li>
+           <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{funcionario?.telefone}}</li>
+        </ul>
+        <div class="card-body">
+           <div class="float-right btn-group btn-group-sm">
+              <a (click)="onOpenModal(funcionario, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+              <a (click)="onOpenModal(funcionario, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
 
-
-<!-- Add Employee Modal -->
-<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+<!-- Add Funcionario Modal -->
+<div class="modal fade" id="addFuncionarioModal" tabindex="-1" role="dialog" aria-labelledby="addFuncionarioModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
        <div class="modal-header">
-          <h5 class="modal-title" id="addEmployeeModalLabel">Add Employee</h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <h5 class="modal-title" id="addFuncionarioModalLabel">Adicionar Funcionario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
           </button>
        </div>
        <div class="modal-body">
-          <form #addForm="ngForm" (ngSubmit)="onAddFuncionario(addForm)">
+          <form #addForm="ngForm" (ngSubmit)="onAddEmloyee(addForm)">
           <div class="form-group">
-             <label for="nome">Nome</label>
+             <label for="nome">Name</label>
              <input type="text" ngModel name="nome" class="form-control" id="nome" placeholder="Nome" required>
           </div>
           <div class="form-group">
@@ -65,8 +63,8 @@
              <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Email" required>
           </div>
           <div class="form-group">
-             <label for="funcao">Função</label>
-             <input type="text" ngModel name="funcao" class="form-control" id="funcao" placeholder="Função" required>
+             <label for="funcao">Job title</label>
+             <input type="text" ngModel name="funcao" class="form-control" id="funcao" placeholder="Linguagem" required>
           </div>
           <div class="form-group">
              <label for="telefone">Phone</label>
@@ -76,23 +74,23 @@
              <label for="urlImagem">Image URL</label>
              <input type="text" ngModel name="urlImagem" class="form-control" id="urlImagem" placeholder="Image URL" required>
           </div>
+          <div class="modal-footer">
+             <button type="button" id="add-funcionario-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+          </div>
           </form>
-       </div>
-       <div class="modal-footer">
-        <button type="button" id="add-employee-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
        </div>
     </div>
   </div>
   </div>
 
 <!-- Edit Modal -->
-<div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateFuncionarioModal" tabindex="-1" role="dialog" aria-labelledby="updateFuncionarioModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
      <div class="modal-content">
         <div class="modal-header">
-           <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Employee {{editFuncionario?.nome}}</h5>
-           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+           <h5 class="modal-title" id="updateFuncionarioModalLabel">Editar funcionario {{editFuncionario?.nome}}</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
            </button>
         </div>
@@ -103,26 +101,26 @@
                  <input type="text" ngModel="{{editFuncionario?.nome}}" name="nome" class="form-control" id="nome" aria-describedby="emailHelp" placeholder="Nome">
               </div>
               <input type="hidden" ngModel="{{editFuncionario?.id}}" name="id" class="form-control" id="id" placeholder="Id">
-              <input type="hidden" ngModel="{{editFuncionario?.linguagem}}" name="linguagem" class="form-control" id="linguagem" placeholder="Employee Code">
+              <input type="hidden" ngModel="{{editFuncionario?.funcionarioCode}}" name="funcionarioCode" class="form-control" id="funcionarioCode" placeholder="FuncionarioCode">
               <div class="form-group">
                  <label for="email">Email Address</label>
                  <input type="email" ngModel="{{editFuncionario?.email}}" name="email" class="form-control" id="email" placeholder="Email">
               </div>
               <div class="form-group">
-                 <label for="funcao">Função</label>
-                 <input type="text" ngModel="{{editFuncionario?.funcao}}" name="funcao" class="form-control" id="funcao" placeholder="Função">
+                 <label for="funcao">Job title</label>
+                 <input type="text" ngModel="{{editFuncionario?.funcao}}" name="funcao" class="form-control" id="funcao" placeholder="Linguagem">
               </div>
               <div class="form-group">
-                 <label for="telefone">Telefone</label>
-                 <input type="text" ngModel="{{editFuncionario?.telefone}}" name="telefone" class="form-control" id="telefone" placeholder="Telefone">
+                 <label for="telefone">Phone</label>
+                 <input type="text" ngModel="{{editFuncionario?.telefone}}" name="telefone" class="form-control" id="telefone" name="telefone" placeholder="Telefone">
               </div>
               <div class="form-group">
                  <label for="urlImagem">Image URL</label>
                  <input type="text" ngModel="{{editFuncionario?.urlImagem}}" name="urlImagem" class="form-control" id="urlImagem" placeholder="Image URL">
               </div>
               <div class="modal-footer">
-                 <button type="button" id="" data-bs-dismiss="modal" class="btn btn-secondary">Close</button>
-                 <button (click)="onUpdateFuncionario(editForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                 <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                 <button (click)="onUpdateEmloyee(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
               </div>
            </form>
         </div>
@@ -131,20 +129,20 @@
 </div>
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+<div class="modal fade" id="deleteFuncionarioModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
      <div class="modal-content">
         <div class="modal-header">
-           <h5 class="modal-title" id="deleteModelLabel">Delete Employee</h5>
-           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+           <h5 class="modal-title" id="deleteModelLabel">Deletar Funcionario</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
            </button>
         </div>
         <div class="modal-body">
-           <p>Are you sure you want to delete employee {{deleteFuncionario?.nome}}?</p>
+           <p>Você tem certeza que quer deletar o funcionário {{deleteFuncionario?.nome}}?</p>
            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-              <button (click)="onDeleteFuncionario(deleteFuncionario.id)" class="btn btn-danger" data-bs-dismiss="modal">Yes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button (click)="onDeleteEmloyee(deleteFuncionario?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
            </div>
         </div>
      </div>
@@ -152,10 +150,10 @@
 </div>
 </div>
 
-<!-- Notification for no employees -->
+<!-- Notification for no funcionario -->
 <div *ngIf="funcionarios?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
 <div class="alert alert-info" role="alert">
-  <h4 class="alert-heading">NO EMPLOYEES!</h4>
-  <p>No Employees were found.</p>
+  <h4 class="alert-heading">Sem funcionários!</h4>
+  <p>Nenhum funcionário foi encontrado.</p>
 </div>
 </div>
